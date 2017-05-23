@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Minecraft lang file editor v1.1</title>
+  
+  
+  
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+  <div id="caption-box">
+	Minecraft语言文件编辑器 v1.1 <br />
+	by Firok
+</div>
+
+<div id="side-box">
+	<div class="side-box-item dynamicStyle" id="side-button-input" onclick="button_input_click()">分析</div>
+	<div class="side-box-item dynamicStyle" id="side-button-edit" onclick="button_edit_click()">编辑</div>
+	<div class="side-box-item dynamicStyle" id="side-button-make" onclick="button_make_click()">组装</div>
+	<div class="side-box-item dynamicStyle" id="side-button-reload" ondblclick="button_reload_click()">初始化</div>
+	<div class="side-box-item dynamicStyle" id="side-button-help" onclick="button_help_click()">帮助</div>
+</div>
+
+<div id="main-box">
+	
+	<div id="box-input" class="main-box-item">
+		<p class="main-box-item-caption" id="caption-input">请将要分析的语言文件内容 <br />或编辑器中转语言内容 <br />粘贴到输入框</p>
+		<p>
+			<textarea id="box-sourceLang"></textarea>
+		</p>
+		<button id="button-input" class="main-box-button">开始分析</button>
+	</div>
+	
+	<div id="box-edit" class="main-box-item">
+		<p class="main-box-item-caption" id="caption-edit">编辑页</p>
+		<div id="editor-box"></div>
+		<button id="button-make" class="main-box-button">开始组装</button>
+	</div>
+	
+	<div id="box-output" class="main-box-item">
+		<p class="main-box-item-caption" id="caption-make">组装页</p>
+		<div id="output-box"></div>
+		<button id="button-middle" class="main-box-button">获取编辑器中转语言内容</button>
+		<div id="output-box-middle"></div>
+	</div>
+	<div id="box-help" class="main-box-item">
+		<p class="main-box-item-caption"  id="caption-help">帮助页</p>
+		<div id="help-box">
+			这个小工具用来方便编辑Minecraft的.lang语言文件 <br />
+			因为是基于web，运行速度有限，不适合一次性处理大量数据（可能会卡死）<br />
+			语言文件太长的话最好分段处理<br />
+			<br />
+			语言文件应该是像这样（格式为" * = * "）  <br />
+			<br />
+			<p style="border:1px solid black;text-align:left">
+				# Other <br />
+				itemGroup.thaumcraft=神秘时代4 <br />
+				nodetype.NORMAL.name=标准 <br />
+				nodetype.UNSTABLE.name=震荡 <br />
+				nodetype.DARK.name=凶险 <br />
+				nodetype.PURE.name=纯净 <br />
+			</p>
+			
+			<br />
+			编辑器中转语言应该是像这样 （格式为" * = * = * "）<br />
+			<p style="border:1px solid black;text-align:left">
+				# Other <br />
+				itemGroup.thaumcraft=神秘时代4=thaumcraft <br />
+				nodetype.NORMAL.name=标准=normal <br />
+				nodetype.UNSTABLE.name=震荡=unstable <br />
+				nodetype.DARK.name=凶险=dark <br />
+				nodetype.PURE.name=纯净=pure <br />
+			</p>
+			
+		</div>
+	</div>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+
+    <script src="js/index.js"></script>
+
+</body>
+</html>

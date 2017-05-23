@@ -1,0 +1,42 @@
+
+body{
+	margin:0px;
+	padding:0px;
+	font-size:16px;
+	background-color:#99CCCC;
+}
+#caption-box{
+	background-color:black;
+	color:white;
+	font-size:200%;
+	width:100%;
+	float:left;
+	text-align:center;
+}
+#side-box{
+	width:120px;
+	position:fixed;
+	left:0px;
+	top:20%;
+	background-color:#99CC33;
+}
+.side-box-item{
+	height:48px;
+	line-height:48px;
+	text-align:left;
+	text-indent:24px;
+}
+#main-box{
+	width:85%;
+	float:right;
+	min-height:400px;
+	text-align:center;
+	padding:20px;
+}
+.main-box-item-caption{
+	font-size:120%;
+}
+#box-sourceLang{
+	width:85%;
+	min-height:300px;
+}
