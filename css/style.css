@@ -13,22 +13,9 @@ body{
 	float:left;
 	text-align:center;
 }
-#side-box{
-	width:120px;
-	position:fixed;
-	left:0px;
-	top:20%;
-	background-color:#99CC33;
-}
-.side-box-item{
-	height:48px;
-	line-height:48px;
-	text-align:left;
-	text-indent:24px;
-}
+
 #main-box{
-	width:85%;
-	float:right;
+	width:100%;
 	min-height:400px;
 	text-align:center;
 	padding:20px;
@@ -39,4 +26,36 @@ body{
 #box-sourceLang{
 	width:85%;
 	min-height:300px;
+}
+#cb{
+	font-size:125%;
+	background-color:#336699;
+	float:left;
+	width:100%;
+}
+.cbi{
+	float:left;
+	padding-right:10px;
+	padding-left:10px;
+}
+.cbi1{
+	float:right;
+}
+.cbi2{
+	float:right;
+}
+.cbi3{
+	float:right;
+}
+.cbi:hover{
+	background-color:white;
+}
+.cbi:active{
+	background-color:gray;
+}
+.cbis:hover{
+	background-color:gold;
+}
+.cbis:active{
+	background-color:yellow;
 }

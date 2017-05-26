@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Minecraft lang file editor v1.1</title>
+  <title>Minecraft lang file editor v1.3</title>
   
   
   
@@ -13,16 +13,29 @@
 
 <body>
   <div id="caption-box">
-	Minecraft语言文件编辑器 v1.1 <br />
-	by Firok
+	Minecraft语言文件编辑器 v1.3 by Firok
 </div>
 
-<div id="side-box">
-	<div class="side-box-item dynamicStyle" id="side-button-input" onclick="button_input_click()">分析</div>
-	<div class="side-box-item dynamicStyle" id="side-button-edit" onclick="button_edit_click()">编辑</div>
-	<div class="side-box-item dynamicStyle" id="side-button-make" onclick="button_make_click()">组装</div>
-	<div class="side-box-item dynamicStyle" id="side-button-reload" ondblclick="button_reload_click()">初始化</div>
-	<div class="side-box-item dynamicStyle" id="side-button-help" onclick="button_help_click()">帮助</div>
+<div id="cb">
+	<div class="cbi" id="cb-input">分析</div>
+	<div class="cbi" id="cb-edit">编辑</div>
+	<div class="cbi" id="cb-make">组装</div>
+	<div class="cbi" id="cb-reload">初始化</div>
+	<div class="cbi" id="cb-help">帮助</div>
+	
+		<div class="cbi cbi2 cbis" id="cb-clear">清空</div>
+		<div id="button-make" class="cbi cbi2 cbis">开始组装</div>
+		<div class="cbi cbi2 cbis" id="cb-new">新增一行</div>
+		<div id="button-input" class="cbi cbi1 cbis">开始分析</div>
+		<div id="button-middle" class="cbi cbi3 cbis">获取编辑器中转语言内容</div>
+	
+</div>
+<div id="bar-edit-new">
+	内部名称<input type="text" id="input-new-inner" />
+	源语言<input type="text" id="input-new-source"/>
+	目标语言<input type="text" id="input-new-result"/>
+	<input type="button" id="input-new-create" value="创建" />
+	<input type="button" id="input-new-cancel" value="取消" />
 </div>
 
 <div id="main-box">
@@ -32,19 +45,19 @@
 		<p>
 			<textarea id="box-sourceLang"></textarea>
 		</p>
-		<button id="button-input" class="main-box-button">开始分析</button>
+
 	</div>
 	
 	<div id="box-edit" class="main-box-item">
 		<p class="main-box-item-caption" id="caption-edit">编辑页</p>
 		<div id="editor-box"></div>
-		<button id="button-make" class="main-box-button">开始组装</button>
+
 	</div>
 	
 	<div id="box-output" class="main-box-item">
 		<p class="main-box-item-caption" id="caption-make">组装页</p>
 		<div id="output-box"></div>
-		<button id="button-middle" class="main-box-button">获取编辑器中转语言内容</button>
+
 		<div id="output-box-middle"></div>
 	</div>
 	<div id="box-help" class="main-box-item">
@@ -53,29 +66,38 @@
 			这个小工具用来方便编辑Minecraft的.lang语言文件 <br />
 			因为是基于web，运行速度有限，不适合一次性处理大量数据（可能会卡死）<br />
 			语言文件太长的话最好分段处理<br />
-			<br />
-			语言文件应该是像这样（格式为" * = * "）  <br />
-			<br />
-			<p style="border:1px solid black;text-align:left">
-				# Other <br />
-				itemGroup.thaumcraft=神秘时代4 <br />
-				nodetype.NORMAL.name=标准 <br />
-				nodetype.UNSTABLE.name=震荡 <br />
-				nodetype.DARK.name=凶险 <br />
-				nodetype.PURE.name=纯净 <br />
-			</p>
+			
 			
 			<br />
-			编辑器中转语言应该是像这样 （格式为" * = * = * "）<br />
-			<p style="border:1px solid black;text-align:left">
-				# Other <br />
-				itemGroup.thaumcraft=神秘时代4=thaumcraft <br />
-				nodetype.NORMAL.name=标准=normal <br />
-				nodetype.UNSTABLE.name=震荡=unstable <br />
-				nodetype.DARK.name=凶险=dark <br />
-				nodetype.PURE.name=纯净=pure <br />
-			</p>
+			<div style="width:50%;float:left">
+				语言文件应该是像这样 <br />（格式为" * = * "）  <br />
+				<br />
+				<p style="border:1px solid black;text-align:left">
+					# Other <br />
+					itemGroup.thaumcraft=神秘时代4 <br />
+					nodetype.NORMAL.name=标准 <br />
+					nodetype.UNSTABLE.name=震荡 <br />
+					nodetype.DARK.name=凶险 <br />
+					nodetype.PURE.name=纯净 <br />
+				</p>
+			</div>
 			
+			<div style="width:50%;float:left">
+				编辑器中转语言应该是像这样 <br />（格式为" * = * = * "）<br /><br />
+				<p style="border:1px solid black;text-align:left">
+					# Other <br />
+					itemGroup.thaumcraft=神秘时代4=thaumcraft <br />
+					nodetype.NORMAL.name=标准=normal <br />
+					nodetype.UNSTABLE.name=震荡=unstable <br />
+					nodetype.DARK.name=凶险=dark <br />
+					nodetype.PURE.name=纯净=pure <br />
+				</p>
+			</div>
+			
+			<br />
+			GitHub链接<br />
+			<a href="https://github.com/S2Lab/Minecraft-.lang-File-Editor">https://github.com/S2Lab/Minecraft-.lang-File-Editor</a><br />
+			任何的问题请到这里反馈
 		</div>
 	</div>
 </div>

@@ -4,34 +4,10 @@ var Global_Tannotation="Tannotation";
 var Global_Tinner="Tinner";
 var Global_Tsource="Tsource";
 var Global_Tlocal="Tlocal";
+var Global_Bdelete="button-editor-delete";
 // id name s = class name s + source name
 
 
-function button_input_click()
-{
-	$(".main-box-item").hide();
-	$("#box-input").show();
-}
-function button_edit_click()
-{
-	$(".main-box-item").hide();
-	$("#box-edit").show();
-}
-function button_make_click()
-{
-	$(".main-box-item").hide();
-	$("#box-output").show();
-}
-function button_reload_click()
-{
-	location.reload();
-}
-
-function button_help_click()
-{
-	$(".main-box-item").hide();
-	$("#box-help").show();
-}
 
 function _setAttributes(ele,cn,id)
 {
@@ -78,9 +54,13 @@ function appendLine(ele_name,inner_name,source_name,result_name)
 	var TresultName=document.createElement("textarea");
 	_setAttributes_it(TresultName,Global_Tlocal,Global_Tlocal+source_name,result_name,"1");
 
+	var Bdelete=document.createElement("input");
+	_setAttributes_tvt(Bdelete,Global_Bdelete,Global_Bdelete+source_name,"button","移除","-1");
+
 	line.appendChild(TinnerName);
 	line.appendChild(TsourceName);
 	line.appendChild(TresultName);
+	// line.appendChild(Bdelete);
 
 	document.getElementById(ele_name).appendChild(line);
 }
@@ -101,38 +81,40 @@ function appendAnnotation(ele_name,annotation_content)
 var lang_source;
 var lang_source_lines;
 
-function getLangSource()
+var step_now=0;
+function _isAnnotation(str)
 {
-	;
-}
-function getLangSourceLines()
-{
-	lang_source_lines=lang_source.split('\n');
-}
-function getLang()
-{
-	;
+	// 如果包含等于号 则判断不是注释
+	var i;
+	for(i=0;i<str.length;i++)
+	{
+		if(str[i]=="=")
+		return false;
+	}
+
+	return true;
 }
 
-var step_now=0;
 $("#button-input").click(function(){
 	if(step_now!=0)
 		return;
-	button_edit_click();
+	step_now=1;
+	$("#cb-edit").click();
 	document.getElementById("box-sourceLang").setAttribute("readonly","true");
 	$(this).hide();
-	$("#side-button-input").css("background-color","green");
+	// $("#side-button-input").css("background-color","green");
 	$("#button-make").show();
-	step_now=1;
+
 
 	// 分析过程
 	//
 	lang_source=document.getElementById("box-sourceLang").value;
 	lang_source_lines=lang_source.split('\n');
+
 	var i=0;
 	for(i=0;i<lang_source_lines.length;i++)
 	{
-		if(lang_source_lines[i][0]=="#") // 注释行
+		if(_isAnnotation(lang_source_lines[i])) // 注释行
 		{
 			if(lang_source_lines[i].trim().length<2)
 				continue;
@@ -145,6 +127,7 @@ $("#button-input").click(function(){
 				strs.push("");
 			appendLine("editor-box",strs[0],strs[1],strs[2]);
 		}
+
 	}
 
 	// 只读化
@@ -156,18 +139,21 @@ $("#button-input").click(function(){
 $("#button-make").click(function(){
 	if(step_now!=1)
 		return;
-	button_make_click();
-	$(this).hide();
-	$("#side-button-edit").css("background-color","green");
-	$("#side-button-make").css("background-color","green");
-	$("#button-middle").show();
 	step_now=2;
+	$("#cb-make").click();
+	$(this).hide();
+	// $("#side-button-edit").css("background-color","green");
+	// $("#side-button-make").css("background-color","green");
+	$("#button-middle").show();
+
 
 	// 组装过程
 	
 	var i;
 	var box_output=document.getElementById("output-box");
 	box_output.innerText+="组装结果\r\n";
+
+
 	for(i=0;i<document.getElementsByClassName(Global_Tinner).length;i++)
 	{
 		box_output.innerText+=document.getElementsByClassName(Global_Tinner)[i].innerText+"=";
@@ -184,6 +170,7 @@ $("#button-make").click(function(){
 		box_output.innerText+="\r\n";
 
 		document.getElementsByClassName(Global_Tlocal)[i].setAttribute("readonly","true");
+
 	}
 
 	// 组装完成后 目标语言只读
@@ -192,12 +179,14 @@ $("#button-make").click(function(){
 $("#button-middle").click(function(){
 	if(step_now!=2)
 		return;
+	step_now++;
 	$(this).hide();
 	// 中转过程
 	//
 	var i;
 	var box_output=document.getElementById("output-box-middle");
 	box_output.innerText+="编辑器中转语言\r\n";
+
 	for(i=0;i<document.getElementsByClassName(Global_Tinner).length;i++)
 	{
 		box_output.innerText+=document.getElementsByClassName(Global_Tinner)[i].innerText+"=";
@@ -205,6 +194,7 @@ $("#button-middle").click(function(){
 		box_output.innerText+=document.getElementsByClassName(Global_Tlocal)[i].value;
 		
 		box_output.innerText+="\r\n";
+
 	}
 	
 	$("#output-box-middle").css("border","1px green solid");
@@ -278,11 +268,75 @@ $(".dynamicStyle").mouseleave(function (){
 	$(this).css("background-color",style_temp);
 });
 
-$("#side-box").draggable();
+// $(".main-box-item").hide();
+// $(".main-box-button").hide();
 
-$("#side-button-reload").css("background-color","darkred");
+$("#cb-reload").css("background-color","crimson");
+$("#cb-clear").css("background-color","darkred");
+$(".cbis").hide();
+$(".cbi1").show();
 
-$(".main-box-item").hide();
-button_input_click();
-$(".main-box-button").hide();
-$("#button-input").show();
+$("#cb-input").click(function(){
+	$(".main-box-item").hide();
+	$("#box-input").show();
+	$(".cbis").hide();
+	if(step_now==0)
+		$(".cbi1").show();
+});
+$("#cb-edit").click(function(){
+	$(".main-box-item").hide();
+	$("#box-edit").show();
+	$(".cbis").hide();
+	if(step_now==1)
+		$(".cbi2").show();
+	$("#cb-clear").hide(); // 暂时不显示清空按钮
+});
+$("#cb-make").click(function(){
+	$(".main-box-item").hide();
+	$("#box-output").show();
+	$(".cbis").hide();
+	if(step_now==2)
+		$(".cbi3").show();
+});
+$("#cb-reload").dblclick(function(){
+	location.reload();
+});
+$("#cb-help").click(function(){
+	$(".main-box-item").hide();
+	$("#box-help").show();
+	$(".cbis").hide();
+});
+
+$("#cb-new").click(function(){
+	$("#bar-edit-new").show();
+});
+
+// 编辑界面上的删除按钮
+$("."+Global_Bdelete).click(function(){
+	$(this).parent().remove();
+});
+
+// 编辑界面上的新增按钮
+$("#input-new-create").click(function(){
+	if(document.getElementById("input-new-inner").value.trim()==""
+	||document.getElementById("input-new-source").value.trim()=="")
+		alert("内部名称或源语言不可为空");
+	else
+	{
+		appendLine("editor-box",document.getElementById("input-new-inner").value.trim(),
+		document.getElementById("input-new-source").value.trim(),
+		document.getElementById("input-new-result").value.trim());
+
+		$("#input-new-cancel").click();
+	}
+});
+$("#input-new-cancel").click(function(){
+	document.getElementById("input-new-inner").value="";
+	document.getElementById("input-new-source").value="";
+	document.getElementById("input-new-result").value="";
+	$("#bar-edit-new").hide();
+});
+
+$("#cb-input").click();
+$("#input-new-cancel").click();
+$("#cb-clear").hide();
